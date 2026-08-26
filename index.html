@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <script>
+    if (window.location.protocol === 'file:') window.location.replace('https://cursoprenat-sucesso.github.io/missao-ilhas-da-biologia-jogo/');
+  </script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PRENAT+ | Missão Ilhas da Biologia</title>
+  <meta name="description" content="Jogo gamificado PRENAT+ de Biologia com cadastro de aluno, ranking, planilha e importador CSV." />
+  <link rel="stylesheet" href="style-biologia.css?v=14" />
+  <link rel="stylesheet" href="mascote-prenat-v27.css?v=1" />
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] }, svg: { fontCache: 'global' } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body class="student-body chemistry-body">
+  <div class="chem-ocean" aria-hidden="true">
+    <span class="chem-glow glow-1"></span>
+    <span class="chem-glow glow-2"></span>
+    <span class="chem-wave wave-1"></span>
+    <span class="chem-wave wave-2"></span>
+    <span class="chem-bubble bubble-1"></span>
+    <span class="chem-bubble bubble-2"></span>
+    <span class="chem-bubble bubble-3"></span>
+    <span class="ocean-fish page-fish fish-page-1"></span>
+    <span class="ocean-fish page-fish fish-page-2"></span>
+    <span class="ocean-turtle page-turtle turtle-page-1"></span>
+    <span class="ocean-turtle page-turtle turtle-page-2"></span>
+    <span class="sea-sprite sea-page-turtle sea-page-turtle-1">🐢</span>
+    <span class="sea-sprite sea-page-turtle sea-page-turtle-2">🐢</span>
+    <span class="sea-sprite sea-page-fish sea-page-fish-1">🐠</span>
+    <span class="sea-sprite sea-page-fish sea-page-fish-2">🐟</span>
+  </div>
+
+  <header class="topbar student-topbar">
+    <div class="brand-area">
+      <img id="brandLogo" class="brand-logo" src="logo-prenat.png" alt="PRENAT+" onerror="this.style.display='none'" />
+      <div>
+        <strong id="brandName">PRENAT+</strong>
+        <span id="missionMini">Missão Ilhas da Biologia</span>
+      </div>
+    </div>
+    <div class="student-actions">
+      <span id="studentIdentity" class="student-identity" aria-live="polite"></span>
+      <button id="openRanking" class="btn btn-ranking">🏆 Ver ranking</button>
+      <button id="changeStudent" class="btn btn-ghost">Trocar aluno</button>
+      <button id="resetProgress" class="btn btn-ghost">Recomeçar missão</button>
+    </div>
+  </header>
+
+  <main id="app" class="app-shell chemistry-shell">
+    <section class="loading-card glass-card">
+      <div class="loader-orb"></div>
+      <h1>Carregando arquipélago da vida...</h1>
+      <p>Preparando ilhas, XP, estrelas e desafios da tartaruga PRENAT+.</p>
+    </section>
+  </main>
+
+
+
+
+  <template id="studentRegistrationTemplate">
+    <section class="registration-overlay" role="dialog" aria-modal="true" aria-labelledby="registrationTitle">
+      <article class="registration-card glass-card fade-in">
+        <img class="registration-logo" src="logo-prenat.png" alt="PRENAT+" />
+        <p class="kicker">IDENTIFICAÇÃO DO NAVEGADOR</p>
+        <h1 id="registrationTitle">Antes de iniciar a travessia</h1>
+        <p class="registration-intro"><strong>Identificação obrigatória ativa.</strong> Informe seus dados para que seu acesso, suas tentativas e suas conquistas sejam registrados no PRENAT+.</p>
+        <form id="studentRegistrationForm" class="registration-form">
+          <label>
+            <span>Nome completo</span>
+            <input name="nome" type="text" autocomplete="name" maxlength="120" required placeholder="Digite seu nome completo" />
+          </label>
+          <label>
+            <span>E-mail</span>
+            <input name="email" type="email" autocomplete="email" maxlength="160" required placeholder="Digite seu melhor e-mail" />
+          </label>
+          <label>
+            <span>Apelido de navegador</span>
+            <input name="apelido" type="text" minlength="3" maxlength="20" required placeholder="Como você aparecerá no ranking" />
+            <small>O ranking mostrará somente seu apelido, estrelas e posição.</small>
+          </label>
+          <label>
+            <span>Turma</span>
+            <select name="turma" required>
+              <option value="">Selecione sua turma</option>
+              <option value="PRENAT+ | Oceano Atlântico | Extensiva">PRENAT+ | Oceano Atlântico | Extensiva</option>
+              <option value="PRENAT+ | Oceano Pacífico | Intensiva">PRENAT+ | Oceano Pacífico | Intensiva</option>
+            </select>
+          </label>
+          <p class="registration-error" data-registration-error aria-live="polite"></p>
+          <button class="btn btn-primary btn-pulse" type="submit">INICIAR MISSÃO</button>
+        </form>
+        <p class="registration-privacy">Seus dados serão usados exclusivamente para acompanhar sua evolução pedagógica no PRENAT+.</p>
+      </article>
+    </section>
+  </template>
+
+  
+
+
+  <template id="rankingTemplate">
+    <section class="ranking-overlay" role="dialog" aria-modal="true" aria-labelledby="rankingTitle">
+      <article class="ranking-modal glass-card fade-in">
+        <button class="ranking-close" type="button" aria-label="Fechar ranking">×</button>
+        <p class="kicker">RANKING DOS NAVEGADORES</p>
+        <h1 id="rankingTitle">Pódio da Biologia</h1>
+        <p class="ranking-subtitle">Apenas apelido, estrelas e posição são exibidos.</p>
+        <div class="ranking-content"><div class="ranking-loading">Carregando o pódio…</div></div>
+      </article>
+    </section>
+  </template>
+
+  
+  <template id="homeTemplate">
+    <section class="chem-hero fade-in">
+      <article class="mission-gate chemistry-gate glass-card">
+        <div class="mission-logo-mark">
+          <img class="mission-logo-img" src="logo-prenat.png" alt="PRENAT+" onerror="this.style.display='none'" />
+          <div class="mission-compass">⚗️</div>
+        </div>
+        <p class="kicker" data-bind="missionKicker"></p>
+        <h1 data-bind="missionName"></h1>
+        <p class="hero-subtitle" data-bind="subtitle"></p>
+        <p class="hero-intro" data-bind="intro"></p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-pulse" data-action="continue">Iniciar/continuar travessia</button>
+          <button class="btn btn-soft" data-action="view-map">Ver mapa da vida</button>
+        </div>
+        <div class="flow-note" data-bind="studentThemeNote"></div>
+      </article>
+
+      <aside class="player-dashboard glass-card">
+        <div class="rank-orb premium-medal" data-rank-icon></div>
+        <div class="rank-card-inner">
+          <span class="tiny-label">Patente atual</span>
+          <h2 data-rank-name></h2>
+          <p data-rank-description></p>
+        </div>
+        <div class="resource-row">
+          <div class="resource-pill"><span>XP</span><strong data-xp-total>0</strong></div>
+          <div class="resource-pill"><span>Moedas</span><strong data-coin-total>0</strong></div>
+          <div class="resource-pill"><span>Estrelas</span><strong data-star-total>0/0</strong></div>
+        </div>
+        <div class="evolution-strip" data-evolution-strip aria-label="Itens de evolução conquistados"></div>
+        <div class="progress-ring" aria-label="Progresso da missão">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="50" class="ring-bg"></circle>
+            <circle cx="60" cy="60" r="50" class="ring-value" data-progress-circle></circle>
+          </svg>
+          <strong data-progress-text>0%</strong>
+        </div>
+        <p class="progress-caption" data-progress-caption></p>
+      </aside>
+    </section>
+
+    <section id="mapa" class="map-card chemistry-map-card glass-card fade-in">
+      <div class="section-title-row">
+        <div>
+          <span class="kicker">Mapa do arquipélago da vida</span>
+          <h2>Escolha a próxima ilha</h2>
+        </div>
+        <span class="badge-pill" data-bind="missionName"></span>
+      </div>
+      <div class="map-story" data-map-story></div>
+      <div class="legend-row">
+        <span><i class="legend-dot open"></i> Aberta</span>
+        <span><i class="legend-dot locked"></i> Bloqueada</span>
+        <span><i class="legend-dot done"></i> Conquistada</span>
+        <span>⭐⭐⭐⭐⭐ = domínio máximo</span>
+      </div>
+      <div class="route-wrap">
+        <svg class="route-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path class="route-shadow" d="M 10 12 C 20.1 11.8, 20.9 23.2, 31 23 C 42.0 22.6, 43.0 12.4, 54 12 C 65.0 11.8, 66.0 25.2, 77 25 C 69.8 23.3, 69.2 44.7, 62 43 C 48.6 40.4, 47.4 45.6, 34 43 C 24.4 40.5, 23.6 60.5, 14 58 C 24.6 56.4, 25.4 68.6, 36 67 C 48.0 64.6, 49.0 61.4, 61 59 C 71.6 58.3, 72.4 70.7, 83 70 C 72.4 69.5, 71.6 84.5, 61 84 C 47.6 83.0, 46.4 87.0, 33 86 C 57.5 83.4, 59.5 93.6, 84 91" />
+          <path class="route-main" d="M 10 12 C 20.1 11.8, 20.9 23.2, 31 23 C 42.0 22.6, 43.0 12.4, 54 12 C 65.0 11.8, 66.0 25.2, 77 25 C 69.8 23.3, 69.2 44.7, 62 43 C 48.6 40.4, 47.4 45.6, 34 43 C 24.4 40.5, 23.6 60.5, 14 58 C 24.6 56.4, 25.4 68.6, 36 67 C 48.0 64.6, 49.0 61.4, 61 59 C 71.6 58.3, 72.4 70.7, 83 70 C 72.4 69.5, 71.6 84.5, 61 84 C 47.6 83.0, 46.4 87.0, 33 86 C 57.5 83.4, 59.5 93.6, 84 91" />
+          <path class="route-done" d="M 10 12 C 20.1 11.8, 20.9 23.2, 31 23 C 42.0 22.6, 43.0 12.4, 54 12 C 65.0 11.8, 66.0 25.2, 77 25 C 69.8 23.3, 69.2 44.7, 62 43 C 48.6 40.4, 47.4 45.6, 34 43 C 24.4 40.5, 23.6 60.5, 14 58 C 24.6 56.4, 25.4 68.6, 36 67 C 48.0 64.6, 49.0 61.4, 61 59 C 71.6 58.3, 72.4 70.7, 83 70 C 72.4 69.5, 71.6 84.5, 61 84 C 47.6 83.0, 46.4 87.0, 33 86 C 57.5 83.4, 59.5 93.6, 84 91" />
+        </svg>
+        <div class="bio-v4-school fish-a">🐠</div>
+          <div class="bio-v4-school fish-b">🐟</div>
+          <div class="bio-v4-turtle turtle-a">🐢</div>
+          <div class="bio-v4-turtle turtle-b">🐢</div>
+          <div class="bio-v4-bubble bu-a"></div>
+          <div class="bio-v4-bubble bu-b"></div>
+          <div class="bio-v4-bubble bu-c"></div>
+          <div class="bio-v4-bubble bu-d"></div>
+        <div class="route-ambient bio-ambient" aria-hidden="true">
+          <span class="bio-cloud-layer c1"></span>
+          <span class="bio-cloud-layer c2"></span>
+          <span class="bio-leaf leaf-a">🍃</span>
+          <span class="bio-leaf leaf-b">🍂</span>
+          <span class="bio-butterfly b1">🦋</span>
+          <span class="bio-butterfly b2">🦋</span>
+          <span class="bio-bird bird-a">🐦</span>
+          <span class="bio-coral coral-a"></span>
+          <span class="bio-coral coral-b"></span>
+          <span class="bio-algae algae-a"></span>
+          <span class="bio-algae algae-b"></span>
+          <span class="bio-wavelet w1"></span>
+          <span class="bio-wavelet w2"></span>
+          <span class="bio-wavelet w3"></span>
+          <span class="ocean-fish map-fish map-fish-1"></span>
+          <span class="ocean-fish map-fish map-fish-2"></span>
+          <span class="ocean-fish map-fish map-fish-3"></span>
+          <span class="ocean-fish map-fish map-fish-4"></span>
+          <span class="ocean-turtle map-turtle map-turtle-1"></span>
+          <span class="ocean-turtle map-turtle map-turtle-2"></span>
+          <span class="ocean-turtle map-turtle map-turtle-3"></span>
+          <span class="ocean-turtle map-turtle map-turtle-4"></span>
+          <span class="ocean-fish map-fish map-fish-5"></span>
+          <span class="ocean-fish map-fish map-fish-6"></span>
+          <span class="map-bubble-dot map-bubble-1"></span>
+          <span class="map-bubble-dot map-bubble-2"></span>
+          <span class="map-bubble-dot map-bubble-3"></span>
+          <span class="map-bubble-dot map-bubble-4"></span>
+          <span class="sea-sprite sea-map-turtle sea-map-turtle-1">🐢</span>
+          <span class="sea-sprite sea-map-turtle sea-map-turtle-2">🐢</span>
+          <span class="sea-sprite sea-map-turtle sea-map-turtle-3">🐢</span>
+          <span class="sea-sprite sea-map-fish sea-map-fish-1">🐠</span>
+          <span class="sea-sprite sea-map-fish sea-map-fish-2">🐟</span>
+          <span class="sea-sprite sea-map-fish sea-map-fish-3">🐡</span>
+          <span class="sea-bubble sea-bubble-1"></span>
+          <span class="sea-bubble sea-bubble-2"></span>
+          <span class="sea-bubble sea-bubble-3"></span>
+          <span class="sea-bubble sea-bubble-4"></span>
+          <span class="sea-bubble sea-bubble-5"></span>
+          <span class="sea-bubble sea-bubble-6"></span>
+          <span class="map-bio-butterfly b1">🦋</span>
+          <span class="map-bio-butterfly b2">🦋</span>
+        </div>
+        <div class="route-map" data-island-map></div>
+      </div>
+    </section>
+  </template>
+
+  <template id="quizTemplate">
+    <section class="quiz-layout fade-in">
+      <aside class="quiz-sidebar glass-card">
+        <button class="btn btn-ghost small" data-action="back-home">← Voltar ao mapa</button>
+        <span class="tiny-label">Ilha atual</span>
+        <h2 data-phase-title></h2>
+        <p data-phase-story></p>
+        <div class="stat-grid">
+          <div class="stat-box stat-lives"><span>Vidas</span><strong data-lives></strong></div>
+          <div class="stat-box"><span>Meta</span><strong data-minpercent></strong></div>
+          <div class="stat-box"><span>Acertos</span><strong data-score></strong></div>
+        </div>
+        <div class="quest-progress"><div data-quiz-progress></div></div>
+        <p class="small-muted" data-question-count></p>
+        <div class="flow-microcopy">Mantenha o casco firme: cada erro mostra uma armadilha e cada acerto ilumina a rota.</div>
+      </aside>
+      <article class="question-card glass-card">
+        <div class="question-topline">
+          <span class="badge-pill" data-question-index></span>
+          <span class="badge-pill subtle" data-question-meta></span>
+        </div>
+        <h1 data-question-statement></h1>
+        <div class="question-image-wrap" data-question-image-wrap>
+          <img data-question-image alt="Imagem da questão" />
+        </div>
+        <div class="options-list" data-options-list></div>
+        <div class="feedback-panel hidden" data-feedback-panel>
+          <h3 data-feedback-title></h3>
+          <p data-feedback-text></p>
+          <p class="descriptor" data-feedback-descriptor></p>
+          <button class="btn btn-primary" data-action="next-question">Continuar</button>
+        </div>
+      </article>
+    </section>
+  </template>
+
+  <template id="resultTemplate">
+    <section class="result-card glass-card fade-in">
+      <div class="result-icon premium-medal" data-result-icon></div>
+      <span class="kicker" data-result-kicker></span>
+      <h1 data-result-title></h1>
+      <p data-result-message></p>
+      <div class="result-stars" data-result-stars></div>
+      <div class="result-stats">
+        <div><span>Acertos</span><strong data-result-score></strong></div>
+        <div><span>Aproveitamento</span><strong data-result-percent></strong></div>
+        <div><span>Meta</span><strong data-result-target></strong></div>
+        <div><span>XP da rodada</span><strong data-result-xp></strong></div>
+        <div><span>Moedas</span><strong data-result-coins></strong></div>
+      </div>
+      <div class="rank-unlock" data-rank-unlock></div>
+      <div class="reward-unlock" data-reward-unlock></div>
+      <div class="hero-actions center-actions">
+        <button class="btn btn-primary" data-action="result-main"></button>
+        <button class="btn btn-soft" data-action="back-home">Voltar ao mapa</button>
+      </div>
+    </section>
+  </template>
+
+  <script src="prenat-runtime-config.js?v=1"></script>
+  <script src="app-biologia.js?v=34"></script>
+  <script src="mascote-prenat-v27.js?v=1"></script>
+</body>
+</html>

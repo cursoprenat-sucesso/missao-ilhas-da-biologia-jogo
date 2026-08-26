@@ -1,0 +1,129 @@
+/* PRENAT+ Química — V27: estudante + tartaruga sobre o MAPA ANTIGO
+   Não muda ilhas, nomes, descrições, questões, ranking ou professor. */
+
+.route-wrap {
+  position: relative;
+  overflow: visible;
+}
+
+.prenat-mascot-stage {
+  position: absolute;
+  width: clamp(58px, 6.4vw, 86px);
+  height: clamp(74px, 8.2vw, 112px);
+  left: 10%;
+  top: 12%;
+  transform: translate(-50%, -103%);
+  pointer-events: none;
+  z-index: 36;
+  transition: left 1.55s cubic-bezier(.17,.84,.22,1), top 1.55s cubic-bezier(.17,.84,.22,1), filter .25s ease;
+  filter: drop-shadow(0 14px 16px rgba(3, 37, 55, .24));
+}
+
+.prenat-mascot-stage.is-walking .mascot-svg { animation: mascotWalkBob .5s ease-in-out infinite; }
+.prenat-mascot-stage.is-arrived .mascot-svg { animation: mascotArrive .68s ease-out both; }
+
+.mascot-svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.mascot-student { transform-origin: 44px 86px; }
+.mascot-head { transform-origin: 44px 33px; }
+.mascot-leg-left { transform-origin: 44px 78px; }
+.mascot-leg-right { transform-origin: 48px 78px; }
+.mascot-turtle { transform-origin: 82px 86px; }
+
+.prenat-mascot-stage.is-walking .mascot-student { animation: studentStride .5s ease-in-out infinite; }
+.prenat-mascot-stage.is-walking .mascot-head { animation: headStride .5s ease-in-out infinite; }
+.prenat-mascot-stage.is-walking .mascot-leg-left { animation: legOne .5s ease-in-out infinite; }
+.prenat-mascot-stage.is-walking .mascot-leg-right { animation: legTwo .5s ease-in-out infinite; }
+.prenat-mascot-stage.is-walking .mascot-turtle { animation: turtleScoot .5s ease-in-out infinite; }
+
+@keyframes mascotWalkBob {
+  0%,100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-4px) rotate(1deg); }
+}
+@keyframes mascotArrive {
+  0% { transform: translateY(-3px) scale(.98); }
+  52% { transform: translateY(-11px) scale(1.04); }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes studentStride { 0%,100% { transform: rotate(-2deg); } 50% { transform: rotate(3deg); } }
+@keyframes headStride { 0%,100% { transform: rotate(1deg); } 50% { transform: rotate(-2deg); } }
+@keyframes legOne { 0%,100% { transform: rotate(9deg); } 50% { transform: rotate(-12deg); } }
+@keyframes legTwo { 0%,100% { transform: rotate(-12deg); } 50% { transform: rotate(8deg); } }
+@keyframes turtleScoot { 0%,100% { transform: translateY(1px) rotate(-2deg); } 50% { transform: translateY(-4px) rotate(3deg); } }
+
+.prenat-path-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #FCCC46;
+  box-shadow: 0 0 0 7px rgba(252,204,70,.17), 0 0 26px rgba(252,204,70,.76);
+  pointer-events: none;
+  animation: pathPulse .9s ease-out both;
+  z-index: 30;
+}
+@keyframes pathPulse {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(.25); }
+  35% { opacity: 1; }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(4); }
+}
+
+/* Resultado: painel menor e menos textual */
+.prenat-result-mascot-panel {
+  margin: 4px auto 16px;
+  max-width: 470px;
+  min-height: 138px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.58);
+  background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(246,253,255,.75));
+  box-shadow: 0 14px 34px rgba(5,82,116,.13);
+}
+.prenat-result-mascot-panel.success { background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(252,204,70,.20), rgba(9,153,159,.13)); }
+.prenat-result-mascot-panel.fail { background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(5,82,116,.06), rgba(208,24,144,.06)); }
+.prenat-result-mascot-panel .result-mascot-art { width: min(190px, 42vw); height: 138px; display: grid; place-items: center; }
+.result-mascot-svg { width: 180px; height: 138px; overflow: visible; filter: drop-shadow(0 16px 14px rgba(3,37,55,.16)); }
+.prenat-result-mascot-panel .result-mascot-text { max-width: 215px; text-align: left; }
+.prenat-result-mascot-panel .result-mascot-text strong {
+  display: inline-block;
+  color: #055274;
+  font: 900 .95rem/1.15 var(--student-heading-font, Inter, system-ui, sans-serif);
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+  box-shadow: inset 0 0 0 1px rgba(9,153,159,.15);
+}
+.prenat-result-mascot-panel .result-mascot-text span { display: none; }
+
+.prenat-result-mascot-panel.success .student-success { animation: resultJump 1.05s ease-in-out infinite; transform-origin: 70px 96px; }
+.prenat-result-mascot-panel.success .turtle-success { animation: turtleJump 1.05s ease-in-out infinite .08s; transform-origin: 119px 101px; }
+.prenat-result-mascot-panel.success .sparkle { animation: sparkleBlink 1.05s ease-in-out infinite; }
+.prenat-result-mascot-panel.fail .student-fail { animation: calmBreath 1.9s ease-in-out infinite; transform-origin: 67px 101px; }
+.prenat-result-mascot-panel.fail .pet-hand { animation: petTurtle 1.35s ease-in-out infinite; transform-origin: 101px 78px; }
+.prenat-result-mascot-panel.fail .turtle-fail { animation: turtleComfort 1.9s ease-in-out infinite; transform-origin: 116px 101px; }
+
+@keyframes resultJump {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  38% { transform: translateY(-23px) rotate(4deg); }
+  55% { transform: translateY(-15px) rotate(-2deg); }
+}
+@keyframes turtleJump {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  42% { transform: translateY(-17px) rotate(-8deg); }
+}
+@keyframes sparkleBlink { 0%,100% { opacity: .28; transform: scale(.88); } 50% { opacity: 1; transform: scale(1.13); } }
+@keyframes calmBreath { 0%,100% { transform: translateY(0); } 50% { transform: translateY(2px); } }
+@keyframes petTurtle { 0%,100% { transform: rotate(-4deg) translateX(0); } 50% { transform: rotate(6deg) translateX(3px); } }
+@keyframes turtleComfort { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(2px) rotate(2deg); } }
+
+@media (max-width: 680px) {
+  .prenat-mascot-stage { width: 54px; height: 76px; transform: translate(-50%, -106%); }
+  .prenat-result-mascot-panel { flex-direction: column; padding: 12px; }
+  .prenat-result-mascot-panel .result-mascot-text { text-align: center; }
+}

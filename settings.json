@@ -1,0 +1,214 @@
+{
+  "slug": "missao-ilhas-da-biologia-prenat-v4",
+  "brand": "PRENAT+",
+  "missionName": "Missão Ilhas da Biologia",
+  "missionKicker": "ARQUIPÉLAGO DA VIDA PRENAT+",
+  "subtitle": "Uma aventura em oceano aberto pelos grandes territórios da Biologia.",
+  "intro": "A tartaruga PRENAT+ atravessa um arquipélago vivo: começa no mundo celular, passa pelos reinos, pelas plantas, pelo DNA, pelos ecossistemas e chega ao Boss Final.",
+  "studentThemeNote": "Cada ilha tem um banco próprio de questões. O Boss Final mistura os blocos anteriores para revisar a Biologia como um todo.",
+  "showMetaToStudent": false,
+  "logo": "logo-prenat.png",
+  "fontBodyKey": "inter",
+  "fontHeadingKey": "inter",
+  "starsMax": 5,
+  "starThresholds": [
+    60,
+    65,
+    70,
+    75,
+    80
+  ],
+  "xpPerCorrect": 10,
+  "xpPerStar": 60,
+  "xpCompletionBonus": 100,
+  "coinPerStar": 4,
+  "coinCompletionBonus": 10,
+  "ranks": [
+    {
+      "name": "Ovo da Vida",
+      "icon": "🥚",
+      "visualStage": 0,
+      "description": "A jornada começa protegida pela casca: antes de dominar a vida, é preciso compreender sua base."
+    },
+    {
+      "name": "Filhote Celular",
+      "icon": "🐢",
+      "visualStage": 1,
+      "description": "Você atravessou o mundo microscópico e começou a reconhecer a organização da vida."
+    },
+    {
+      "name": "Tartaruga dos Reinos Vivos",
+      "icon": "🐢",
+      "visualStage": 2,
+      "description": "Você entende melhor fungos, animais e a diversidade dos organismos."
+    },
+    {
+      "name": "Guardião das Plantas",
+      "icon": "🐢",
+      "visualStage": 3,
+      "description": "Você domina a conquista do ambiente terrestre pelas plantas e seus mecanismos de sobrevivência."
+    },
+    {
+      "name": "Navegadora do DNA",
+      "icon": "🐢",
+      "visualStage": 4,
+      "description": "Você decifra hereditariedade, evolução, biotecnologia e funcionamento do corpo humano."
+    },
+    {
+      "name": "Protetora dos Ecossistemas",
+      "icon": "🐢",
+      "visualStage": 5,
+      "description": "Você compreende relações ecológicas, impactos ambientais e saúde pública."
+    },
+    {
+      "name": "Grande Mestre da Vida",
+      "icon": "🏆",
+      "visualStage": 6,
+      "description": "Você integra os níveis da Biologia, do microscópico ao planeta, e vence a travessia."
+    }
+  ],
+  "turtleRewards": [
+    {
+      "phaseId": 1,
+      "icon": "🧫",
+      "name": "Membrana Protetora do Casco",
+      "message": "A tartaruga ganhou uma proteção celular: membranas, organelas e microrganismos começaram a fazer sentido."
+    },
+    {
+      "phaseId": 2,
+      "icon": "🍄",
+      "name": "Escudo da Diversidade",
+      "message": "Você conquistou um escudo vivo para atravessar fungos, invertebrados, vertebrados e adaptações evolutivas."
+    },
+    {
+      "phaseId": 3,
+      "icon": "🌿",
+      "name": "Folha Vital do Casco",
+      "message": "O casco recebeu energia vegetal: evolução das plantas, transporte de seiva e fisiologia vegetal foram desbloqueados."
+    },
+    {
+      "phaseId": 4,
+      "icon": "🧬",
+      "name": "Hélice Genética da Evolução",
+      "message": "Você ganhou a hélice da vida: genética, evolução, biotecnologia e fisiologia humana agora sustentam a travessia."
+    },
+    {
+      "phaseId": 5,
+      "icon": "🌎",
+      "name": "Cristal do Equilíbrio Ecológico",
+      "message": "A tartaruga conquistou o cristal ecológico para proteger cadeias alimentares, ciclos, ambientes e saúde pública."
+    },
+    {
+      "phaseId": 6,
+      "icon": "👑",
+      "name": "Coroa da Tartaruga da Vida",
+      "message": "Você venceu o Boss Final e recebeu a coroa da vida: uma síntese de todos os blocos da Biologia."
+    }
+  ],
+  "phases": [
+    {
+      "id": 1,
+      "name": "Ilha da Célula Viva",
+      "title": "Citologia e Base Molecular",
+      "story": "Nesta ilha, a tartaruga entra no mundo microscópico: célula, membrana, organelas, vírus, bactérias, protistas e algas.",
+      "minPercent": 60,
+      "lives": 3,
+      "questionLimit": 10,
+      "shuffle": true,
+      "rewardRankIndex": 1,
+      "difficultyLabel": "Base microscópica",
+      "iconStage": 0,
+      "icon": "🧫",
+      "x": 13,
+      "y": 76,
+      "rewardItemIndex": 0
+    },
+    {
+      "id": 2,
+      "name": "Bosque dos Reinos Ocultos",
+      "title": "Fungos e Zoologia",
+      "story": "A tartaruga atravessa fungos, invertebrados, vertebrados, vetores e adaptações evolutivas que explicam a diversidade animal.",
+      "minPercent": 65,
+      "lives": 4,
+      "questionLimit": 12,
+      "shuffle": true,
+      "rewardRankIndex": 2,
+      "difficultyLabel": "Diversidade viva",
+      "iconStage": 1,
+      "icon": "🍄",
+      "x": 26,
+      "y": 39,
+      "rewardItemIndex": 1
+    },
+    {
+      "id": 3,
+      "name": "Jardim das Plantas Ancestrais",
+      "title": "Botânica e Fisiologia Vegetal",
+      "story": "A trilha passa por briófitas, pteridófitas, gimnospermas, angiospermas, xilema, floema, estômatos e fitormônios.",
+      "minPercent": 70,
+      "lives": 5,
+      "questionLimit": 14,
+      "shuffle": true,
+      "rewardRankIndex": 3,
+      "difficultyLabel": "Reino Plantae",
+      "iconStage": 2,
+      "icon": "🌿",
+      "x": 44,
+      "y": 64,
+      "rewardItemIndex": 2
+    },
+    {
+      "id": 4,
+      "name": "Laboratório do DNA e do Corpo",
+      "title": "Genética, Evolução e Fisiologia",
+      "story": "A tartaruga decifra Mendel, biotecnologia, evolução e sistemas do corpo humano, incluindo imunologia.",
+      "minPercent": 75,
+      "lives": 6,
+      "questionLimit": 16,
+      "shuffle": true,
+      "rewardRankIndex": 4,
+      "difficultyLabel": "Mecanismos da vida",
+      "iconStage": 3,
+      "icon": "🧬",
+      "x": 58,
+      "y": 29,
+      "rewardItemIndex": 3
+    },
+    {
+      "id": 5,
+      "name": "Santuário dos Ecossistemas",
+      "title": "Ecologia, Sustentabilidade e Saúde",
+      "story": "A jornada chega aos ecossistemas: fluxo de energia, teias alimentares, ciclos biogeoquímicos, impactos ambientais e doenças brasileiras.",
+      "minPercent": 80,
+      "lives": 7,
+      "questionLimit": 18,
+      "shuffle": true,
+      "rewardRankIndex": 5,
+      "difficultyLabel": "Ecologia e saúde",
+      "iconStage": 4,
+      "icon": "🌎",
+      "x": 78,
+      "y": 58,
+      "rewardItemIndex": 4
+    },
+    {
+      "id": 6,
+      "name": "Boss Final",
+      "title": "Grande Travessia da Vida",
+      "story": "O Boss Final mistura citologia, microbiologia, fungos, zoologia, botânica, genética, evolução, fisiologia, ecologia e saúde pública.",
+      "minPercent": 85,
+      "lives": 9,
+      "questionLimit": 30,
+      "shuffle": true,
+      "rewardRankIndex": 6,
+      "difficultyLabel": "Boss cumulativo",
+      "iconStage": 5,
+      "icon": "🏆🌳",
+      "x": 85,
+      "y": 18,
+      "rewardItemIndex": 5,
+      "cumulative": true,
+      "cumulativeFromPrevious": true
+    }
+  ]
+}
