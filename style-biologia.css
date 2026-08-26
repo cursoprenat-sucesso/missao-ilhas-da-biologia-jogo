@@ -3467,3 +3467,19 @@
   .registration-card { max-height: calc(100vh - 24px); }
   .podium-grid{grid-template-columns:1fr}.podium-card{order:initial!important;padding:16px}.ranking-modal{padding:24px 14px}.ranking-row{grid-template-columns:46px 1fr 70px}.student-actions .btn-ranking{display:inline-flex}
 }
+
+/*
+   Compatibilidade do mapa publicado.
+   O JavaScript atual usa a estrutura clássica .map-island-button. Uma versão
+   visual experimental escondia essa estrutura enquanto esperava elementos
+   .bio-v4-* que nunca são gerados. Mantemos o desenho existente visível em
+   todas as larguras até a migração do HTML ser feita de forma completa.
+*/
+.map-island-button .floating-island,
+.map-island-button .node-caption{
+  display:block!important;
+}
+.map-island-button .node-badge,
+.map-island-button .island-status-bubble{
+  display:grid!important;
+}
